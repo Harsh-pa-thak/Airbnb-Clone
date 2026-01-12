@@ -1,32 +1,39 @@
-const express= require('express');
+const express = require("express");
 const app = express();
-const port = 8080;
-const main = require('./dbConnection');
-const listingModel = require('./models/listing');
-main().then(()=>{
-    console.log("Connected to MongoDB");
-}).catch((err)=>{
-    console.log("Error connecting to MongoDB:", err);
+const mongoose = require("mongoose");
+const Listing = require("./models/listing.js");
+const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+main()
+  .then(() => {
+    console.log("connected to DB");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+async function main() {
+  await mongoose.connect(MONGO_URL);
+}
+
+app.get("/", (req, res) => {
+  res.send("Hi, I am root");
 });
 
-app.get('/sampleListing',async (req,res)=>{
-    let sampleListing = new listingModel({
-        title: "Beautiful Beach House",
-        description: "A lovely beach house with stunning ocean views.",
-        image: "",
-        price: 250,
-        location: "Malibu",
-        country: "USA"
-    });
-    await sampleListing.save();
-    res.send("Sample listing saved to database");
-    
-})
 
-app.get('/',(req,res)=>{
-    res.send("Server is running");
-})
+// app.get("/testListing", async (req, res) => {
+//   let sampleListing = new Listing({
+//     title: "My New Villa",
+//     description: "By the beach",
+//     price: 1200,
+//     location: "Calangute, Goa",
+//     country: "India",
+//   });
 
-app.listen(port,()=>{
-    console.log(`Server is running on http://localhost:${port}`);
+//   await sampleListing.save();
+//   console.log("sample was saved");
+//   res.send("successful testing");
+// });
+
+app.listen(8080, () => {
+  console.log("server is listening to port 8080");
 });
