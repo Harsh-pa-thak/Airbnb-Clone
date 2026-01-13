@@ -19,6 +19,17 @@ app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
+app.get('/listings',(req,res)=>{
+
+  Listing.find({}).then((list)=>{
+  console.log(list);  
+  }
+  ).catch((err)=>{
+    console.log(err);
+  });
+  res.send("listings route");
+});
+
 
 // app.get("/testListing", async (req, res) => {
 //   let sampleListing = new Listing({
