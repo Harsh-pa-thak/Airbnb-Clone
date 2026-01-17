@@ -14,10 +14,11 @@ app.use(methodOverride('_method'));
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; connect-src 'self' http://localhost:8080"
+    "default-src 'self'; img-src 'self' https://images.unsplash.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:;"
   );
   next();
 });
+
 
 main()
   .then(() => {
@@ -44,6 +45,14 @@ app.get('/listings',(req,res)=>{
     console.log(err);
   });
   
+});
+app.get('/listing-detail/:id',(req,res)=>{
+  const id = req.params.id;
+  Listing.findById(id).then((listing)=>{
+    res.render('listing-detail',{listing});
+  }).catch((err)=>{
+    console.log(err);
+  });
 });
 
 app.get('/newListing',(req,res)=>{
@@ -83,7 +92,11 @@ app.put("/listings/:id", async (req, res) => {
 
   res.redirect('/listings');
 });
-
+app.delete("/listings/:id", async (req, res) => {
+  const id = req.params.id;
+  await Listing.findByIdAndDelete(id);
+  res.redirect('/listings');
+});
 
 // app.get("/testListing", async (req, res) => {
 //   let sampleListing = new Listing({
