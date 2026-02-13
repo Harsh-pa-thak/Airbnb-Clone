@@ -3,19 +3,38 @@
 <body>
     <h1>Create a New Listing</h1>
     <form action="/listings" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea><br><br>
-        <label for="price">Price per night:</label>
-        <input type="number" id="price" name="price" required><br><br>
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required><br><br>
-        <label for="country" >Country:</label>
-        <input type="text" id="country" name="country" required><br><br>
-        <label for="imageUrl">Image URL:</label>
-        <input type="text" id="imageUrl" name="imageUrl" ><br><br>
-        <button type="submit">Create Listing</button>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input class="form-control" type="text" id="title" name="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea id="description" name="description" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price per night:</label>
+            <input class="form-control" type="number" id="price" name="price" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="location" class="form-label">Location:</label>
+            <input class="form-control" type="text" id="location" name="location" required>
+        </div>
+
+        <div class="mb-3">
+            <label for= "country" class="form-label">Country:</label>
+            <input class="form-control" type="text" id="country" name="country" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Image URL:</label>
+            <input class="form-control" type="text" id="imageUrl" name="imageUrl">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Create Listing</button>
+
     </form>
 </body>
 <% layout('layouts/boilerplate') %>
