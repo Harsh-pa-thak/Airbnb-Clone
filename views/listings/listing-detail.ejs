@@ -1,23 +1,45 @@
 <% layout('layouts/boilerplate') %>
 
 <body>
-
-    <div class="card">
-        <img src="<%= listing.image %>" alt="<%= listing.title  %>" class="card-img-top show-img">
-        <div class="card-body">
-            <p class="card-text"><%= listing.title %></p>
+    <div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      
+      <div class="card shadow-sm">
+        
+        <div class="text-center p-3">
+          <img 
+            src="<%= listing.image %>" 
+            alt="<%= listing.title %>" 
+            class="img-fluid rounded show-img"
+            style="max-height: 400px; object-fit: cover;">
         </div>
-     </div>
 
+        <div class="card-body offset-3">
+          <h3 class="card-title"><%= listing.title %></h3>
+          <p class="card-text"><%= listing.description %></p>
+          
+          <p class="mb-1"><strong>Price:</strong> $<%= listing.price %></p>
+          <p><strong>Location:</strong> <%= listing.location %>, <%= listing.country %></p>
 
+          <div class="d-flex gap-2 mt-3">
+            <a href="/editListings/<%= listing._id %>" class="btn btn-primary">
+              Edit Listing
+            </a>
 
-    <h1><%= listing.title %></h1>
-    <p><%= listing.description %></p>
-    <img src="<%= listing.image %>" alt="<%= listing.title %>">
-    <p>Price: $<%= listing.price %></p>
-    <p>Location: <%= listing.location %>, <%= listing.country %></p>
-    <button><a href="/editListings/<%= listing._id %>">Edit Listing</a></button>
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" style="display:inline;">
-        <button type="submit">Delete Listing</button>
-    </form>
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-danger">
+                Delete Listing
+              </button>
+              <br>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body> 

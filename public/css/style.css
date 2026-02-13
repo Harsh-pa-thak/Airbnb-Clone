@@ -116,5 +116,8 @@ body {
 }
 .show-img{
     height: 30vh;
-    
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 10px;
+
 }
