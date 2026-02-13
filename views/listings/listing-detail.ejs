@@ -1,6 +1,16 @@
 <% layout('layouts/boilerplate') %>
 
 <body>
+
+    <div class="card">
+        <img src="<%= listing.image %>" alt="<%= listing.title %>" class="card-img-top">
+        <div class="card-body">
+            <p class="card-text"><%= listing.title %></p>
+        </div>
+     </div>
+
+
+
     <h1><%= listing.title %></h1>
     <p><%= listing.description %></p>
     <img src="<%= listing.image %>" alt="<%= listing.title %>">
