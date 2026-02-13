@@ -1,12 +1,15 @@
 <% layout('layouts/boilerplate') %>
 
 <body>
+    <div class="container">
     <h1>Available Listings</h1>
     <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
         <% for(let data of listings) { %>
             <a href="/listing-detail/<%=data._id%>" class="listing-link">
                 <div class="card col" style="height: 20rem; width: 18rem;">
                     <img class="card-img-top" src="<%=data.image%>" alt="Listings image">
+                      <div class="card-img-overlay"></div>
+
                     <div class="card-body">
                         <p>
                             <%= data.title %><br>
@@ -16,6 +19,7 @@
                 </div> 
             </a>   
         <% } %>    
+    </div>
     </div>
 </body>
 
