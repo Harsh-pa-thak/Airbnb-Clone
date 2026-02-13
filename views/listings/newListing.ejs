@@ -1,40 +1,41 @@
 <% layout('layouts/boilerplate') %>
 
 <body>
-    <h1>Create a New Listing</h1>
-    <form action="/listings" method="POST">
+  <div class="row">
+    <div class="col-8 offset-2  ">
+      <h1>Create a New Listing</h1>
+      <form action="/listings" method="POST">
         <div class="mb-3">
-            <label for="title" class="form-label">Title:</label>
-            <input class="form-control" type="text" id="title" name="title" required>
+          <label for="title" class="form-label">Title:</label>
+          <input class="form-control" type="text" id="title" name="title" required>
         </div>
 
         <div class="mb-3">
-            <label for="description" class="form-label">Description:</label>
-            <textarea id="description" name="description" class="form-control" required></textarea>
+          <label for="description" class="form-label">Description:</label>
+          <textarea id="description" name="description" class="form-control" required></textarea>
         </div>
-
-        <div class="mb-3">
-            <label for="price" class="form-label">Price per night:</label>
-            <input class="form-control" type="number" id="price" name="price" required>
+        <div class="row">
+            <div class="mb-3 col-4">
+                <label for="price" class="form-label">Price per night:</label>
+                <input class="form-control" type="number" id="price" name="price" required>
+            </div>
+             <div class="mb-3 col-8">
+                <label for="country" class="form-label">Country:</label>
+                <input class="form-control" type="text" id="country" name="country" required>
+            </div>
+            
         </div>
-
-        <div class="mb-3">
+        <div class="mb-3 ">
             <label for="location" class="form-label">Location:</label>
             <input class="form-control" type="text" id="location" name="location" required>
         </div>
-
         <div class="mb-3">
-            <label for= "country" class="form-label">Country:</label>
-            <input class="form-control" type="text" id="country" name="country" required>
+          <label for="imageUrl" class="form-label">Image URL:</label>
+          <input class="form-control" type="text" id="imageUrl" name="imageUrl">
         </div>
 
-        <div class="mb-3">
-            <label for="imageUrl" class="form-label">Image URL:</label>
-            <input class="form-control" type="text" id="imageUrl" name="imageUrl">
-        </div>
-
-        <button class="btn btn-primary" type="submit">Create Listing</button>
-
-    </form>
+        <button class="btn btn-dark" type="submit">Create Listing</button>
+      </form>
+    </div>
+  </div>
 </body>
-<% layout('layouts/boilerplate') %>
