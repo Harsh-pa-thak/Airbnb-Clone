@@ -3,7 +3,9 @@
 <body>
   <div class="row">
     <div class="col-8 offset-2  ">
+        
       <h1>Create a New Listing</h1>
+      <br>
       <form action="/listings" method="POST">
         <div class="mb-3">
           <label for="title" class="form-label">Title:</label>
@@ -33,9 +35,10 @@
           <label for="imageUrl" class="form-label" >Image URL:</label>
           <input class="form-control" type="text" id="imageUrl" name="imageUrl">
         </div>
-
-        <button class="btn btn-dark" type="submit">Create Listing</button>
+        <br>
+        <button class="btn btn-dark create-btn" type="submit">Create Listing</button>
       </form>
     </div>
   </div>
+  <br>
 </body>
