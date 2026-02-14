@@ -11,7 +11,7 @@ body {
 }
 
 .navbar {
-    height: 5rem;
+    
     background-color: white;
 }
 
@@ -122,4 +122,11 @@ body {
     padding-right: 0px;
     padding-bottom: 10px;
 
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
 }
