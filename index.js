@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utils/wrapasync.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 app.use(express.json());
@@ -66,8 +67,7 @@ app.get("/newListing", (req, res) => {
   res.render("listings/newListing");
 });
 
-app.post("/listings", async (req, res,next) => {
-  try{
+app.post("/listings", wrapAsync(async (req, res,next) => {
     const {
     title,
     description,
@@ -88,10 +88,7 @@ app.post("/listings", async (req, res,next) => {
 
   await newListing.save();
   res.redirect("/listings");
-  }catch(err){
-    next(err);
-  }
-});
+}));
 
 app.get("/editListings/:id", async (req, res) => {
   const id = req.params.id;
