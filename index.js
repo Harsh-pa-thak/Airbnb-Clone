@@ -91,14 +91,14 @@ app.post("/listings", wrapAsync(async (req, res,next) => {
   res.redirect("/listings");
 }));
 
-app.get("/editListings/:id", async (req, res) => {
+app.get("/editListings/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id);
 
   res.render("listings/editListing", { listing });
-});
+}));
 
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const {
     title,
@@ -119,14 +119,14 @@ app.put("/listings/:id", async (req, res) => {
   });
 
   res.redirect("/listings");
-});
+}));
 
-app.delete("/listings/:id", async (req, res) => {
+app.delete("/listings/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
 
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
-});
+}));
 
 
 app.all(/.*/, (req, res, next) => {
