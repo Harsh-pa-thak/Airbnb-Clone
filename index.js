@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapasync.js");
+const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 app.use(express.json());
@@ -128,7 +129,8 @@ app.delete("/listings/:id", async (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.send("Something went wrong");
+  let { statusCode = 500, message = "Something went wrong" } = err;
+  res.status(statusCode).send(message);
 });
 
 app.listen(8080, () => {
