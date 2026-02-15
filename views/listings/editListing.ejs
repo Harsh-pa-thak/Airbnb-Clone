@@ -9,26 +9,33 @@
         <div class="mb-3">
           <label for="title" class="form-label">Title:</label>
           <input class="form-control" type="text" id="title" name="title" value="<%= listing.title %>" required>
+          <div class="valid-feedback">Good title </div>
+          <div class="invalid-feedback">Enter a valid title </div>
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Description:</label>
           <textarea class="form-control" id="description" name="description" required><%= listing.description %></textarea>
+          <div class="invalid-feedback">Enter a valid discription </div>
         </div>
         <div class="row">
             <div class="mb-3 col-md-4 ii">
               <label for="price" class="form-label">Price per night:</label>
               <input class="form-control" type="number" id="price" name="price" value="<%= listing.price %>" required>
+              <div class="invalid-feedback">Enter a valid Price </div>
             </div>
 
             <div class="mb-3 col-md-8">
               <label for="country" class="form-label">Country:</label>
               <input class="form-control" type="text" id="country" name="country" value="<%= listing.country %>" required>
+              <div class="invalid-feedback">Enter a valid country </div>
+
             </div>
         </div>
 
         <div class="mb-3">
           <label for="location" class="form-label">Location:</label>
           <input class="form-control" type="text" id="location" name="location" value="<%= listing.location %>" required>
+          <div class="invalid-feedback">Enter a valid location </div>
         </div>
         <div class="mb-3">
           <label for="imageUrl" class="form-label">Image URL:</label>
