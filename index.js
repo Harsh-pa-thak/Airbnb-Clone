@@ -69,6 +69,9 @@ app.get("/newListing", (req, res) => {
 });
 
 app.post("/listings", wrapAsync(async (req, res,next) => {
+    if(!req.body.title || !req.body.description || !req.body.price || !req.body.location || !req.body.country){
+        throw new CustomError("All fields are required",400);
+    }
     const {
     title,
     description,
