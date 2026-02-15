@@ -128,6 +128,11 @@ app.delete("/listings/:id", async (req, res) => {
   res.redirect("/listings");
 });
 
+
+app.all(/.*/, (req, res, next) => {
+  next(new CustomError("Page Not Found", 404));
+});
+
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).send(message);
