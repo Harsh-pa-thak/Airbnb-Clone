@@ -66,8 +66,9 @@ app.get("/newListing", (req, res) => {
   res.render("listings/newListing");
 });
 
-app.post("/listings", async (req, res) => {
-  const {
+app.post("/listings", async (req, res,next) => {
+  try{
+    const {
     title,
     description,
     price,
@@ -87,6 +88,9 @@ app.post("/listings", async (req, res) => {
 
   await newListing.save();
   res.redirect("/listings");
+  }catch(err){
+    next(err);
+  }
 });
 
 app.get("/editListings/:id", async (req, res) => {
@@ -124,6 +128,10 @@ app.delete("/listings/:id", async (req, res) => {
 
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
+});
+
+app.use((err, req, res, next) => {
+  res.send("Something went wrong");
 });
 
 app.listen(8080, () => {
