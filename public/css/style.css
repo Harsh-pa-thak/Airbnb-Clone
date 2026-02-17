@@ -105,7 +105,7 @@ body {
 
 .card:hover .card-img-overlay {
     opacity: 0.2;
-    background-color: white;
+    background-color: rgb(215, 209, 209);
 }
 
 .create-btn{
