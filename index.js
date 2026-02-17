@@ -42,7 +42,8 @@ async function main() {
 const validate =(req,res,next)=>{
   let {error}= listingSchema.validate(req.body);
   if(error){
-    throw new CustomError(error.details[0].message,400);
+    let em = error.details.map(el=>el.message).join(",");
+    throw new CustomError(em,400);
   }else{
     next();
   }
@@ -99,7 +100,6 @@ app.put("/listings/:id",validate, wrapAsync(async (req, res) => {
 
 app.delete("/listings/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
-
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
 }));
