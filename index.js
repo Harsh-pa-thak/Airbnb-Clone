@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const ejsMate = require("ejs-mate");
+const listingSchema = require('./schema.js').listingSchema;
 const wrapAsync = require("./utils/wrapasync.js");
 const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
@@ -69,27 +70,11 @@ app.get("/newListing", (req, res) => {
 });
 
 app.post("/listings", wrapAsync(async (req, res,next) => {
-    if(!req.body.title || !req.body.description || !req.body.price || !req.body.location || !req.body.country){
-        throw new CustomError("All fields are required",400);
-    }
-    const {
-    title,
-    description,
-    price,
-    location,
-    country,
-    imageUrl,
-  } = req.body;
-
-  const newListing = new Listing({
-    title: title,
-    description: description,
-    image: imageUrl,
-    price: price,
-    location: location,
-    country: country,
-  });
-
+  const newListing = new Listing(req.body); 
+  const result = listingSchema.validate(req.body);
+  if(result.error){
+    throw new CustomError(result.error.details[0].message,400);
+  }
   await newListing.save();
   res.redirect("/listings");
 }));
