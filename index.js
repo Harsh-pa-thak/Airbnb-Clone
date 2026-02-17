@@ -138,7 +138,7 @@ app.all(/.*/, (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;
-  res.render("errors", { message, statusCode });
+  res.status(statusCode).render("errors", { err });
 });
 
 app.listen(8080, () => {
