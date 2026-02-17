@@ -39,6 +39,15 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
+const validate =(req,res,next)=>{
+  let {error}= listingSchema.validate(req.body);
+  if(error){
+    throw new CustomError(error.details[0].message,400);
+  }else{
+    next();
+  }
+}
+
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
@@ -69,12 +78,8 @@ app.get("/newListing", (req, res) => {
   res.render("listings/newListing");
 });
 
-app.post("/listings", wrapAsync(async (req, res,next) => {
-  const newListing = new Listing(req.body); 
-  const result = listingSchema.validate(req.body);
-  if(result.error){
-    throw new CustomError(result.error.details[0].message,400);
-  }
+app.post("/listings", validate, wrapAsync(async (req, res,next) => {
+  const newListing = new Listing(req.body);
   await newListing.save();
   res.redirect("/listings");
 }));
@@ -86,26 +91,9 @@ app.get("/editListings/:id", wrapAsync(async (req, res) => {
   res.render("listings/editListing", { listing });
 }));
 
-app.put("/listings/:id", wrapAsync(async (req, res) => {
+app.put("/listings/:id",validate, wrapAsync(async (req, res) => {
   const id = req.params.id;
-  const {
-    title,
-    description,
-    price,
-    location,
-    country,
-    imageUrl,
-  } = req.body;
-
-  await Listing.findByIdAndUpdate(id, {
-    title,
-    description,
-    image: imageUrl,
-    price,
-    location,
-    country,
-  });
-
+  await Listing.findByIdAndUpdate(id, {...req.body}); 
   res.redirect("/listings");
 }));
 
