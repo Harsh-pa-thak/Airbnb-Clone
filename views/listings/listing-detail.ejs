@@ -52,7 +52,7 @@
 
           <h4 class="mb-4">Leave a Review</h4>
 
-          <form action="/listings/<%= listing._id %>/reviews" method="POST">
+          <form action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation" method="POST">
 
             <div class="mb-4">
               <label for="rating" class="form-label">Rating</label>
@@ -83,6 +83,7 @@
                 class="form-control"
                 required
               ></textarea>
+              <div class="invalid-feedback">Enter a valid Comment </div>
             </div>
 
             <button 

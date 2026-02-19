@@ -4,6 +4,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 const ejsMate = require("ejs-mate");
 const listingSchema = require('./schema.js').listingSchema;
 const wrapAsync = require("./utils/wrapasync.js");
@@ -103,8 +104,14 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
 }));
-app.get('/listings/:id/reviews',wrapAsync(async (req,res)=>{
-      
+app.post('/listings/:id/reviews',wrapAsync(async (req,res)=>{
+  let listing = await Listing.findById(req.params.id);
+  let review = new Review(req.body.review);
+  listing.reviews.push(review);
+  await review.save();
+  await listing.save();
+  res.redirect(`/listing-detail/${req.params.id}`);
+ 
 }))
 
 app.all(/.*/, (req, res, next) => {
