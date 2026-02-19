@@ -17,3 +17,13 @@
     }, false)
   })
 })()
+document.addEventListener("DOMContentLoaded", function () {
+    const ratingInput = document.getElementById("rating");
+    const ratingValue = document.getElementById("ratingValue");
+
+    ratingValue.textContent = ratingInput.value;
+
+    ratingInput.addEventListener("input", function () {
+      ratingValue.textContent = this.value;
+    });
+  });

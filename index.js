@@ -103,7 +103,9 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
 }));
-
+app.get('/listings/:id/reviews',wrapAsync(async (req,res)=>{
+      
+}))
 
 app.all(/.*/, (req, res, next) => {
   next(new CustomError("Page Not Found", 404));

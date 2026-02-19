@@ -4,13 +4,10 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
 
-      <!-- Listing Title -->
       <h2 class="mb-4"><%= listing.title %></h2>
 
-      <!-- Card -->
       <div class="card border-0 shadow-sm rounded-4">
 
-        <!-- Image -->
         <img 
           src="<%= listing.image %>" 
           alt="<%= listing.title %>" 
@@ -18,7 +15,6 @@
           style="height: 350px; width: 100%; object-fit: cover;"
         >
 
-        <!-- Card Body -->
         <div class="card-body">
 
           <p class="text-muted mb-3">
@@ -33,7 +29,6 @@
             <%= listing.location %>, <%= listing.country %>
           </p>
 
-          <!-- Buttons -->
           <div class="d-flex gap-3 mt-4">
             <a href="/editListings/<%= listing._id %>" 
                class="btn btn-danger px-4">
@@ -52,7 +47,6 @@
         </div>
       </div>
 
-      
       <div class="card mt-5 shadow-sm rounded-4">
         <div class="card-body">
 
@@ -60,32 +54,41 @@
 
           <form action="/listings/<%= listing._id %>/reviews" method="POST">
 
-            
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="rating" class="form-label">Rating</label>
-              <input 
-                type="range" 
-                min="1" 
-                max="5" 
-                id="rating" 
-                name="review[rating]" 
+
+              <input
+                type="range"
+                class="form-range"
+                min="1"
+                max="5"
+                value="3"
+                id="rating"
+                name="review[rating]"
+                required
               >
+
+              <div class="mt-2">
+                Selected Rating:
+                <span id="ratingValue" class="fw-bold">3</span>
+              </div>
             </div>
 
-            
-            <div class="mb-3">
+            <div class="mb-4">
               <label for="comment" class="form-label">Comments</label>
               <textarea 
                 name="review[comment]" 
                 id="comment" 
-                cols="30" 
                 rows="5" 
                 class="form-control"
                 required
               ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary px-4" style="background-color: #fe424d !important; border: none;">
+            <button 
+              type="submit" 
+              class="btn text-white px-4"
+              style="background-color: #fe424d; border: none;">
               Submit
             </button>
 
