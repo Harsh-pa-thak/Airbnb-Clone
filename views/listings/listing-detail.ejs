@@ -97,16 +97,34 @@
 
         </div>
         <hr>
-      <div>
-        <h4>All reviews</h4>
-        <ul>
-          <% for (r of listing.reviews) {%>
-            <li>
-             <%=r.comment %> , <%=r.rating%> out of 5
-          <% } %>
-        </ul>
-       
+     <div class="mt-5">
+  <h4 class="mb-4 fw-semibold">All Reviews</h4>
+
+  <div class="row g-4">
+    <% for (let r of listing.reviews) { %>
+
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+
+          <!-- Rating -->
+          <div class="mb-2">
+            <% for(let i = 1; i <= 5; i++) { %>
+              <% if(i <= r.rating) { %>
+                <span class="text-danger fs-5">&#9733;</span>
+              <% } else { %>
+                <span class="text-muted fs-5">&#9734;</span>
+              <% } %>
+            <% } %>
+          </div>
+          <p class="mb-2 text-dark">
+            <%= r.comment %>
+          </p>
+        </div>
       </div>
+
+    <% } %>
+  </div>
+</div>
 
       </div>
     </div>
