@@ -96,8 +96,19 @@
           </form>
 
         </div>
+        <hr>
+      <div>
+        <h4>All reviews</h4>
+        <ul>
+          <% for (r of listing.reviews) {%>
+            <li>
+             <%=r.comment %> , <%=r.rating%> out of 5
+          <% } %>
+        </ul>
+       
       </div>
 
+      </div>
     </div>
   </div>
 </div>

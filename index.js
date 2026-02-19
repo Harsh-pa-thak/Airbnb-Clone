@@ -50,16 +50,16 @@ const validate =(req,res,next)=>{
     next();
   }
 }
-const validateReview =(req,res,next)=>{
-  let {error}= reviewSchema.validate(req.body);
-  if(error){
-    console.log(error);
-    let em = error.details.map(el=>el.message).join(",");
-    throw new CustomError(em,400);
-  }else{
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
+
+  if (error) {
+    const msg = error.details.map(el => el.message).join(",");
+    throw new CustomError(msg, 400);
+  } else {
     next();
   }
-}
+};
 
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
@@ -75,17 +75,11 @@ app.get("/listings", (req, res) => {
     });
 });
 
-app.get("/listings/:id", (req, res) => {
+app.get("/listings/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
-
-  Listing.findById(id)
-    .then((listing) => {
-      res.render("listings/listing-detail", { listing });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+  const listing = await Listing.findById(id).populate("reviews");
+  res.render("listings/listing-detail", { listing });
+}));
 
 app.get("/newListing", (req, res) => {
   res.render("listings/newListing");
