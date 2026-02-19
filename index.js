@@ -7,6 +7,7 @@ const Listing = require("./models/listing.js");
 const Review = require("./models/review.js");
 const ejsMate = require("ejs-mate");
 const listingSchema = require('./schema.js').listingSchema;
+const reviewSchema = require('./schema.js').reviewSchema;
 const wrapAsync = require("./utils/wrapasync.js");
 const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
@@ -49,6 +50,16 @@ const validate =(req,res,next)=>{
     next();
   }
 }
+const validateReview =(req,res,next)=>{
+  let {error}= reviewSchema.validate(req.body);
+  if(error){
+    console.log(error);
+    let em = error.details.map(el=>el.message).join(",");
+    throw new CustomError(em,400);
+  }else{
+    next();
+  }
+}
 
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
@@ -64,7 +75,7 @@ app.get("/listings", (req, res) => {
     });
 });
 
-app.get("/listing-detail/:id", (req, res) => {
+app.get("/listings/:id", (req, res) => {
   const id = req.params.id;
 
   Listing.findById(id)
@@ -104,13 +115,13 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
 }));
-app.post('/listings/:id/reviews',wrapAsync(async (req,res)=>{
+app.post('/listings/:id/reviews',validateReview,wrapAsync(async (req,res)=>{
   let listing = await Listing.findById(req.params.id);
   let review = new Review(req.body.review);
   listing.reviews.push(review);
   await review.save();
   await listing.save();
-  res.redirect(`/listing-detail/${req.params.id}`);
+  res.redirect(`/listings/${req.params.id}`);
  
 }))
 
