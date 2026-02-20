@@ -83,7 +83,7 @@
                 class="form-control"
                 required
               ></textarea>
-              <div class="invalid-feedback">Enter a valid Comment </div>
+              <div class="invalid-feedback">Enter a valid Comment</div>
             </div>
 
             <button 
@@ -96,37 +96,48 @@
           </form>
 
         </div>
-        <hr>
-     <div class="mt-5">
-  <h4 class="mb-4 fw-semibold">All Reviews</h4>
+      </div>
 
-  <div class="row g-4">
-    <% for (let r of listing.reviews) { %>
+      <hr>
 
-      <div class="col-md-6">
-        <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
+      <div class="mt-5">
+        <h4 class="mb-4 fw-semibold">All Reviews</h4>
 
-          <!-- Rating -->
-          <div class="mb-2">
-            <% for(let i = 1; i <= 5; i++) { %>
-              <% if(i <= r.rating) { %>
-                <span class="text-danger fs-5">&#9733;</span>
-              <% } else { %>
-                <span class="text-muted fs-5">&#9734;</span>
-              <% } %>
-            <% } %>
-          </div>
-          <p class="mb-2 text-dark">
-            <%= r.comment %>
-          </p>
+        <div class="row g-4">
+          <% for (let r of listing.reviews) { %>
+
+            <div class="col-md-6">
+              <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                
+                <div>
+                  <div class="mb-2">
+                    <% for(let i = 1; i <= 5; i++) { %>
+                      <% if(i <= r.rating) { %>
+                        <span class="text-danger fs-5">&#9733;</span>
+                      <% } else { %>
+                        <span class="text-muted fs-5">&#9734;</span>
+                      <% } %>
+                    <% } %>
+                  </div>
+
+                  <p class="mb-3 text-dark">
+                    <%= r.comment %>
+                  </p>
+                </div>
+
+                <form>
+                  <button class="btn btn-sm btn-outline-danger">
+                    Delete
+                  </button>
+                </form>
+
+              </div>
+            </div>
+
+          <% } %>
         </div>
       </div>
 
-    <% } %>
-  </div>
-</div>
-
-      </div>
     </div>
   </div>
 </div>
