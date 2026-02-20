@@ -75,15 +75,15 @@ app.get("/listings", (req, res) => {
     });
 });
 
+app.get("/listings/newListings", (req, res) => {
+  res.render("listings/newListing");
+});
+
 app.get("/listings/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id).populate("reviews");
   res.render("listings/listing-detail", { listing });
 }));
-
-app.get("/newListing", (req, res) => {
-  res.render("listings/newListing");
-});
 
 app.post("/listings", validate, wrapAsync(async (req, res,next) => {
   const newListing = new Listing(req.body);
@@ -91,7 +91,7 @@ app.post("/listings", validate, wrapAsync(async (req, res,next) => {
   res.redirect("/listings");
 }));
 
-app.get("/editListings/:id", wrapAsync(async (req, res) => {
+app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id);
 
