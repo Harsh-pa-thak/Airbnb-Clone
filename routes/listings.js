@@ -46,7 +46,7 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id);
 
-  res.render("/editListing", { listing });
+  res.render("listings/editListing", { listing });
 }));
 
 router.put("/:id",validate, wrapAsync(async (req, res) => {
