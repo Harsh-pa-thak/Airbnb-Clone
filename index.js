@@ -41,15 +41,6 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
-const validate =(req,res,next)=>{
-  let {error}= listingSchema.validate(req.body);
-  if(error){
-    let em = error.details.map(el=>el.message).join(",");
-    throw new CustomError(em,400);
-  }else{
-    next();
-  }
-}
 const validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
 
@@ -65,50 +56,9 @@ app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
-app.get("/listings", (req, res) => {
-  Listing.find({})
-    .then((list) => {
-      res.render("listings/listings", { listings: list });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+app.use("/listings", require("./routes/listings.js"));
 
-app.get("/listings/newListings", (req, res) => {
-  res.render("listings/newListing");
-});
 
-app.get("/listings/:id", wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  const listing = await Listing.findById(id).populate("reviews");
-  res.render("listings/listing-detail", { listing });
-}));
-
-app.post("/listings", validate, wrapAsync(async (req, res,next) => {
-  const newListing = new Listing(req.body);
-  await newListing.save();
-  res.redirect("/listings");
-}));
-
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  const listing = await Listing.findById(id);
-
-  res.render("listings/editListing", { listing });
-}));
-
-app.put("/listings/:id",validate, wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  await Listing.findByIdAndUpdate(id, {...req.body}); 
-  res.redirect("/listings");
-}));
-
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  await Listing.findByIdAndDelete(id);
-  res.redirect("/listings");
-}));
 app.post('/listings/:id/reviews',validateReview,wrapAsync(async (req,res)=>{
   let listing = await Listing.findById(req.params.id);
   let review = new Review(req.body.review);
