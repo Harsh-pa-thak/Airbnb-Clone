@@ -1,16 +1,4 @@
 <% layout('layouts/boilerplate') %>
-<% if(success && success.length) { %>
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <%= success %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% } %>
-<% if(error && error.length) { %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= error %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% } %>
 <div class="container">
 <h1>Available Listings</h1>
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
