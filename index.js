@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const session = require("express-session");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,6 +36,16 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
+const sessionOptions={
+  secret:"abcdefghijklmnopqrsdjdfhgu",
+  resave:false,
+  saveUninitialized:true,
+}
+app.use(session(sessionOptions));
+
+
+
+
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
