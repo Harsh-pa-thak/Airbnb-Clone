@@ -7,6 +7,7 @@ const ejsMate = require("ejs-mate");
 const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const session = require("express-session");
+const { date } = require("joi");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,6 +41,12 @@ const sessionOptions={
   secret:"abcdefghijklmnopqrsdjdfhgu",
   resave:false,
   saveUninitialized:true,
+  
+  cookie:{
+    httpOnly:true,
+    expireDate: date.now() + 1000*60*60*24*7,
+    maxAge: 1000*60*60*24*7
+  }  
 }
 app.use(session(sessionOptions));
 
