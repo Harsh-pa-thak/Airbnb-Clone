@@ -3,7 +3,6 @@ const router = express.Router();
 const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
 const listingSchema = require('../schema.js').listingSchema;
-const reviewSchema = require('../schema.js').reviewSchema;
 const CustomError= require("../utils/customError.js");
 
 const validate =(req,res,next)=>{
@@ -16,16 +15,10 @@ const validate =(req,res,next)=>{
   }
 }
 
-router.get("/", (req, res) => {
-  Listing.find({})
-    .then((list) => {
-      res.render("listings/listings", { listings: list });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
+router.get("/", wrapAsync(async (req, res) => {
+  const listings = await Listing.find({});
+  res.render("listings/listings", { listings});
+}));
 router.get("/newListings", (req, res) => {
   res.render("listings/newListing");
 });
@@ -39,6 +32,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 router.post("/", validate, wrapAsync(async (req, res,next) => {
   const newListing = new Listing(req.body);
   await newListing.save();
+  req.flash("success", "Successfully made a new listing");
   res.redirect("/listings");
 }));
 

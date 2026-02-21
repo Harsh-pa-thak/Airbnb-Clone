@@ -8,6 +8,7 @@ const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const session = require("express-session");
 const { date } = require("joi");
+const flash = require("connect-flash");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,17 +45,21 @@ const sessionOptions={
   
   cookie:{
     httpOnly:true,
-    expireDate: date.now() + 1000*60*60*24*7,
+    expireDate: Date.now() + 1000*60*60*24*7,
     maxAge: 1000*60*60*24*7
   }  
 }
 app.use(session(sessionOptions));
-
-
-
+app.use(flash());
 
 app.get("/", (req, res) => {
   res.send("Hi, I am root");
+});
+
+app.use((req,res,next)=>{
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
 });
 
 app.use("/listings", require("./routes/listings.js"));
