@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapasync.js");
+const { route } = require("./user");
 
 router.get("/signup", (req, res) => {
     res.render("users/signup");
@@ -19,5 +20,9 @@ router.post("/signup",wrapAsync(async (req, res) => {
         return res.redirect("/signup");
     }
 }));
+
+router.get("/login", (req, res) => {
+    res.render("users/login");
+});
 
 module.exports = router;
