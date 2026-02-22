@@ -46,12 +46,14 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
 router.put("/:id",validate, wrapAsync(async (req, res) => {
   const id = req.params.id;
   await Listing.findByIdAndUpdate(id, {...req.body}); 
+  req.flash("success", "Successfully updated the listing");
   res.redirect("/listings");
 }));
 
 router.delete("/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
   await Listing.findByIdAndDelete(id);
+  req.flash("success", "Successfully deleted the listing");
   res.redirect("/listings");
 }));
 
