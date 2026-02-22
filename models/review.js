@@ -1,6 +1,4 @@
-const { number } = require("joi");
 const mongoose = require("mongoose");
-const { create } = require("./listing");
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
