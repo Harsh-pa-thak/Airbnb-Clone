@@ -65,11 +65,21 @@ app.get("/", (req, res) => {
   res.send("Hi, I am root");
 });
 
+
 app.use((req,res,next)=>{
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 });
+app.use("/demoUser", async (req, res) => {
+  const fkuser= new User({
+    email:"hi@gmail.com",
+    username:"fkuser"
+  });
+  const user = await User.register(fkuser,"mypass123");
+  res.send(user); 
+});
+
 
 app.use("/listings", require("./routes/listings.js"));
 app.use("/listings/:id/reviews", require("./routes/reviews.js"));
