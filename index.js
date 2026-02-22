@@ -12,6 +12,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const userRoutes = require("./routes/user.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -71,18 +72,10 @@ app.use((req,res,next)=>{
   res.locals.error = req.flash("error");
   next();
 });
-app.use("/demoUser", async (req, res) => {
-  const fkuser= new User({
-    email:"hi@gmail.com",
-    username:"fkuser"
-  });
-  const user = await User.register(fkuser,"mypass123");
-  res.send(user); 
-});
-
 
 app.use("/listings", require("./routes/listings.js"));
 app.use("/listings/:id/reviews", require("./routes/reviews.js"));
+app.use("/", userRoutes);
 
 app.all(/.*/, (req, res, next) => {
   next(new CustomError("Page Not Found", 404));
