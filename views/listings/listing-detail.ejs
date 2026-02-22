@@ -1,143 +1,67 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
+<div class="row">
 
-      <h2 class="mb-4"><%= listing.title %></h2>
+<div class="col-md-8 offset-md-2">
 
-      <div class="card border-0 shadow-sm rounded-4">
 
-        <img 
-          src="<%= listing.image %>" 
-          alt="<%= listing.title %>" 
-          class="img-fluid rounded-top-4"
-          style="height: 350px; width: 100%; object-fit: cover;"
-        >
+<h2 class="mb-4">
+<%= listing.title %>
+</h2>
 
-        <div class="card-body">
 
-          <p class="text-muted mb-3">
-            <%= listing.description %>
-          </p>
+<div class="card shadow-sm rounded-4 border-0">
 
-          <p class="fw-semibold fs-5">
-            ₹ <%= listing.price %>
-          </p>
+<img
+src="<%= listing.image %>"
+class="card-img-top show-img">
 
-          <p class="text-muted">
-            <%= listing.location %>, <%= listing.country %>
-          </p>
+<div class="card-body">
 
-          <div class="d-flex gap-3 mt-4">
-            <a href="/listings/<%= listing._id %>/edit" 
-               class="btn btn-danger px-4">
-              Edit
-            </a>
 
-            <form action="/listings/<%= listing._id %>?_method=DELETE" 
-                  method="POST">
-              <button type="submit" 
-                      class="btn btn-dark px-4">
-                Delete
-              </button>
-            </form>
-          </div>
+<p class="text-muted">
+<%= listing.description %>
+</p>
 
-        </div>
-      </div>
 
-      <div class="card mt-5 shadow-sm rounded-4">
-        <div class="card-body">
+<p class="fw-bold fs-5">
+₹ <%= listing.price %>
+</p>
 
-          <h4 class="mb-4">Leave a Review</h4>
 
-          <form action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation" method="POST">
+<p class="text-muted">
+<%= listing.location %>, <%= listing.country %>
+</p>
 
-            <div class="mb-4">
-              <label for="rating" class="form-label">Rating</label>
 
-              <input
-                type="range"
-                class="form-range"
-                min="1"
-                max="5"
-                value="3"
-                id="rating"
-                name="review[rating]"
-                required
-              >
+<div class="d-flex gap-3 mt-3">
 
-              <div class="mt-2">
-                Selected Rating:
-                <span id="ratingValue" class="fw-bold">3</span>
-              </div>
-            </div>
+<a href="/listings/<%= listing._id %>/edit"
+class="btn btn-danger">
 
-            <div class="mb-4">
-              <label for="comment" class="form-label">Comments</label>
-              <textarea 
-                name="review[comment]" 
-                id="comment" 
-                rows="5" 
-                class="form-control"
-                required
-              ></textarea>
-              <div class="invalid-feedback">Enter a valid Comment</div>
-            </div>
+Edit
 
-            <button 
-              type="submit" 
-              class="btn text-white px-4"
-              style="background-color: #fe424d; border: none;">
-              Submit
-            </button>
+</a>
 
-          </form>
 
-        </div>
-      </div>
+<form method="POST"
+action="/listings/<%= listing._id %>?_method=DELETE">
 
-      <hr>
+<button class="btn btn-dark">
 
-      <div class="mt-5">
-        <h4 class="mb-4 fw-semibold">All Reviews</h4>
+Delete
 
-        <div class="row g-4">
-          <% for (let r of listing.reviews) { %>
+</button>
 
-            <div class="col-md-6">
-              <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
-                
-                <div>
-                  <div class="mb-2">
-                    <% for(let i = 1; i <= 5; i++) { %>
-                      <% if(i <= r.rating) { %>
-                        <span class="text-danger fs-5">&#9733;</span>
-                      <% } else { %>
-                        <span class="text-muted fs-5">&#9734;</span>
-                      <% } %>
-                    <% } %>
-                  </div>
+</form>
 
-                  <p class="mb-3 text-dark">
-                    <%= r.comment %>
-                  </p>
-                </div>
+</div>
 
-                <form method="POST" action="/listings/<%=listing._id%>/reviews/<%=r._id%>?_method=DELETE">
-                  <button class="btn btn-sm btn-outline-danger">
-                    Delete
-                  </button>
-                </form>
 
-              </div>
-            </div>
+</div>
 
-          <% } %>
-        </div>
-      </div>
+</div>
 
-    </div>
-  </div>
+</div>
+
 </div>
