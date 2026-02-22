@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapasync.js");
 const { route } = require("./user");
+const passport = require("passport");
 
 router.get("/signup", (req, res) => {
     res.render("users/signup");
@@ -24,5 +25,11 @@ router.post("/signup",wrapAsync(async (req, res) => {
 router.get("/login", (req, res) => {
     res.render("users/login");
 });
+
+router.post("/login",passport.authenticate('local',{failureFlash:true , failureRedirect:"/login"}),wrapAsync(async (req, res) => {
+    req.flash("success", "Logged in successfully");
+    res.redirect("/listings");
+}));
+
 
 module.exports = router;
