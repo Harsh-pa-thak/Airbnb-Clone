@@ -4,6 +4,7 @@ const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
 const listingSchema = require('../schema.js').listingSchema;
 const CustomError= require("../utils/customError.js");
+const { isLoggedIn } = require("../middelware.js");
 
 const validate =(req,res,next)=>{
   let {error}= listingSchema.validate(req.body);
@@ -19,11 +20,7 @@ router.get("/", wrapAsync(async (req, res) => {
   const listings = await Listing.find({});
   res.render("listings/listings", { listings});
 }));
-router.get("/newListings", (req, res) => {
-  if(!req.isAuthenticated()) {
-    req.flash("error", "You must be signed in to create a new listing");
-    return res.redirect("/login");
-  }
+router.get("/newListings", isLoggedIn, (req, res) => {
   res.render("listings/newListing");
 });
 
@@ -37,14 +34,14 @@ router.get("/:id", wrapAsync(async (req, res) => {
   res.render("listings/listing-detail", { listing });
 }));
 
-router.post("/", validate, wrapAsync(async (req, res,next) => {
+router.post("/", isLoggedIn, validate, wrapAsync(async (req, res,next) => {
   const newListing = new Listing(req.body);
   await newListing.save();
   req.flash("success", "Successfully made a new listing");
   res.redirect("/listings");
 }));
 
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id);
   if(!listing){
@@ -54,14 +51,14 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
   res.render("listings/editListing", { listing });
 }));
 
-router.put("/:id",validate, wrapAsync(async (req, res) => {
+router.put("/:id",isLoggedIn,validate, wrapAsync(async (req, res) => {
   const id = req.params.id;
   await Listing.findByIdAndUpdate(id, {...req.body}); 
   req.flash("success", "Successfully updated the listing");
   res.redirect("/listings");
 }));
-
-router.delete("/:id", wrapAsync(async (req, res) => {
+  
+router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {
   const id = req.params.id;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Successfully deleted the listing");
