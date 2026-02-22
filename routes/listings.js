@@ -20,6 +20,10 @@ router.get("/", wrapAsync(async (req, res) => {
   res.render("listings/listings", { listings});
 }));
 router.get("/newListings", (req, res) => {
+  if(!req.isAuthenticated()) {
+    req.flash("error", "You must be signed in to create a new listing");
+    return res.redirect("/login");
+  }
   res.render("listings/newListing");
 });
 
