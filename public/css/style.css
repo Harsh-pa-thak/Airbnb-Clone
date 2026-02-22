@@ -127,8 +127,3 @@ body {
 .navbar-toggler {
     border: none;
 }
-
-.btn-close {
-    filter: none !important;
-    opacity: 1 !important;
-}
