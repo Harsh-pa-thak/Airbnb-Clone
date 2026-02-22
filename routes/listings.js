@@ -26,6 +26,10 @@ router.get("/newListings", (req, res) => {
 router.get("/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id).populate("reviews");
+  if(!listing){
+    req.flash("error", "Cannot find the listing");
+    return res.redirect("/listings");
+  }
   res.render("listings/listing-detail", { listing });
 }));
 
@@ -39,7 +43,10 @@ router.post("/", validate, wrapAsync(async (req, res,next) => {
 router.get("/:id/edit", wrapAsync(async (req, res) => {
   const id = req.params.id;
   const listing = await Listing.findById(id);
-
+  if(!listing){
+    req.flash("error", "Cannot find the listing");
+    return res.redirect("/listings");
+  }
   res.render("listings/editListing", { listing });
 }));
 
