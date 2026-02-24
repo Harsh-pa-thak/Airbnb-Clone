@@ -14,8 +14,14 @@ router.post("/signup",wrapAsync(async (req, res) => {
         let { username, email, password } = req.body;
         const user = new User({ username, email });
         await User.register(user, password);
+        req.login(user, (err) => {
+            if (err) {
+                return next(err);
+            }
         req.flash("success", "Welcome to AirBnb");
         res.redirect("/listings");
+        });
+        
     }catch (e) {
         req.flash("error", e.message);
         return res.redirect("/signup");
