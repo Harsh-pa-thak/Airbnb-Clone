@@ -32,18 +32,18 @@
           </p>
 
           <div class="d-flex gap-3 mt-4">
-            <a href="/listings/<%= listing._id %>/edit" 
-               class="btn btn-danger px-4">
-              Edit
-            </a>
+            <form action="/listings/<%= listing._id %>/edit" method="GET">
+              <button type="submit" class="btn btn-danger px-4">
+                Edit
+              </button>
+            </form>
 
-            <form action="/listings/<%= listing._id %>?_method=DELETE" 
-                  method="POST">
-              <button type="submit" 
-                      class="btn btn-dark px-4">
+            <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-dark px-4">
                 Delete
               </button>
             </form>
+
           </div>
 
         </div>
