@@ -113,7 +113,7 @@
                 
                 <div>
                   <div>
-                    <p class="fw-semibold">@ <%= r.author.username %></p>
+                    <p class="fw-semibold">@ <%= (r.author && r.author.username) ? r.author.username : "Anonymous" %></p>
                   </div>
                   <div class="mb-2">
                     <% for(let i = 1; i <= 5; i++) { %>

@@ -1,6 +1,7 @@
 const Listing = require("./models/listing.js");
 const listingSchema = require('./schema.js').listingSchema;
 const CustomError= require("./utils/customError.js");
+const Review = require("./models/review.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()) {
@@ -39,13 +40,14 @@ module.exports.validate =(req,res,next)=>{
   }
 }
 
-module.exports.isReviewAuthor = ((req, res, next) => {
-  let {id, reviewId} = req.params;
-  let review = Review.findById(reviewId);
-  if(!review.author._id.equals(req.user._id)){
+module.exports.isReviewAuthor = async (req, res, next) => {
+  const { id, reviewId } = req.params;
+  const review = await Review.findById(reviewId);
+
+  if (!review || !review.author || !review.author.equals(req.user._id)) {
     req.flash("error", "You don't have permission to do that");
     return res.redirect(`/listings/${id}`);
   }
-  next();
 
-})
+  next();
+};
