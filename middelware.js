@@ -38,3 +38,14 @@ module.exports.validate =(req,res,next)=>{
     next();
   }
 }
+
+module.exports.isReviewAuthor = ((req, res, next) => {
+  let {id, reviewId} = req.params;
+  let review = Review.findById(reviewId);
+  if(!review.author._id.equals(req.user._id)){
+    req.flash("error", "You don't have permission to do that");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
+
+})

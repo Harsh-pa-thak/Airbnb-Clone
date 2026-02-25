@@ -5,7 +5,8 @@ const Review = require("../models/review.js");
 const reviewSchema = require('../schema.js').reviewSchema;
 const CustomError= require("../utils/customError.js");
 const Listing = require("../models/listing.js");
-const { isLoggedIn } = require("../middelware.js");
+const { isLoggedIn,isReviewAuthor } = require("../middelware.js");
+
 
 
 const validateReview = (req, res, next) => {
@@ -31,7 +32,7 @@ router.post('/',validateReview,isLoggedIn,wrapAsync(async (req,res)=>{
  
 }))
 
-router.delete('/:reviewId',wrapAsync(async (req,res)=>{
+router.delete('/:reviewId',isLoggedIn,isReviewAuthor,wrapAsync(async (req,res)=>{
   let {id , reviewId} = req.params;
   await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
   await Review.findByIdAndDelete(reviewId);
