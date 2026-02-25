@@ -2,19 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
-const listingSchema = require('../schema.js').listingSchema;
-const CustomError= require("../utils/customError.js");
-const { isLoggedIn, isOwner } = require("../middelware.js");
-
-const validate =(req,res,next)=>{
-  let {error}= listingSchema.validate(req.body);
-  if(error){
-    let em = error.details.map(el=>el.message).join(",");
-    throw new CustomError(em,400);
-  }else{
-    next();
-  }
-}
+const { isLoggedIn, isOwner , validate } = require("../middelware.js");
 
 router.get("/", wrapAsync(async (req, res) => {
   const listings = await Listing.find({});

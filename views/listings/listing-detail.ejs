@@ -48,7 +48,7 @@
 
         </div>
       </div>
-
+      <%if (currentUser) { %>
       <div class="card mt-5 shadow-sm rounded-4">
         <div class="card-body">
 
@@ -99,7 +99,7 @@
 
         </div>
       </div>
-
+      <% } %>
       <hr>
 
       <div class="mt-5">
@@ -112,6 +112,9 @@
               <div class="card border-0 shadow-sm rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
                 
                 <div>
+                  <div>
+                    <p class="fw-semibold"><%= r.author.username %></p>
+                  </div>
                   <div class="mb-2">
                     <% for(let i = 1; i <= 5; i++) { %>
                       <% if(i <= r.rating) { %>
