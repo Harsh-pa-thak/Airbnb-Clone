@@ -4,7 +4,7 @@ const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
 const listingSchema = require('../schema.js').listingSchema;
 const CustomError= require("../utils/customError.js");
-const { isLoggedIn } = require("../middelware.js");
+const { isLoggedIn, isOwner } = require("../middelware.js");
 
 const validate =(req,res,next)=>{
   let {error}= listingSchema.validate(req.body);
@@ -52,11 +52,11 @@ router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
   res.render("listings/editListing", { listing });
 }));
 
-router.put("/:id",isLoggedIn,validate, wrapAsync(async (req, res) => {
+router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(async (req, res) => {
   const id = req.params.id;
   await Listing.findByIdAndUpdate(id, {...req.body}); 
   req.flash("success", "Successfully updated the listing");
-  res.redirect("/listings");
+  res.redirect(`/listings/${id}`);
 }));
   
 router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {

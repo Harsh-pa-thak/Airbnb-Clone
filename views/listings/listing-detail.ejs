@@ -30,7 +30,7 @@
           <p class="text-muted">
             <%= listing.location %>, <%= listing.country %>
           </p>
-
+        <% if (currentUser && currentUser._id.equals(listing.owner._id)) { %>
           <div class="d-flex gap-3 mt-4">
             <form action="/listings/<%= listing._id %>/edit" method="GET">
               <button type="submit" class="btn btn-danger px-4">
@@ -43,8 +43,8 @@
                 Delete
               </button>
             </form>
-
           </div>
+          <% } %>
 
         </div>
       </div>
