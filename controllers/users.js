@@ -29,3 +29,5 @@ module.exports.loginPost =async (req, res) => {
     req.flash("success", "Logged in successfully");
     res.redirect(res.locals.redirectUrl || "/listings");
 };
+
+module.exports.logout = 
