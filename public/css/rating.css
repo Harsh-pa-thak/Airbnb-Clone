@@ -1,3 +1,4 @@
+/* ── Rating input (starability-slot) ── */
 .starability-slot {
   display: inline-flex;
   flex-direction: row-reverse;
@@ -5,7 +6,6 @@
   gap: 4px;
   padding: 0;
   border: none;
-  direction: rtl;
 }
 
 .starability-slot > input {
@@ -21,15 +21,13 @@
   font-size: 0;
   line-height: 1;
   cursor: pointer;
-  transition: color 0.2s ease;
-  direction: ltr;
 }
 
 .starability-slot > label::before {
   content: '★';
   display: block;
   font-size: 32px;
-  color: #d6d6d6;
+  color: #cfcfcf;
   transition: color 0.2s ease;
 }
 
