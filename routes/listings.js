@@ -17,15 +17,7 @@ router.post("/", isLoggedIn, validate, wrapAsync(
   listingController.newlisting
 ));
 
-router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  const listing = await Listing.findById(id);
-  if(!listing){
-    req.flash("error", "Cannot find the listing");
-    return res.redirect("/listings");
-  }
-  res.render("listings/editListing", { listing });
-}));
+router.get("/:id/edit",isLoggedIn, wrapAsync(listingController.editform));
 
 router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(async (req, res) => {
   const id = req.params.id;
