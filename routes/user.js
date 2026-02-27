@@ -5,8 +5,10 @@ const passport = require("passport");
 const { saveRedirectUrl } = require("../middelware.js");
 const controllers = require("../controllers/users.js");
 
-router.get("/signup", controllers.signupGet);
-router.post("/signup",wrapAsync(controllers.signupPost));
+router.route("/signup")
+.get("/signup", controllers.signupGet);
+.post("/signup",wrapAsync(controllers.signupPost));
+
 
 router.get("/login", controllers.loginGet);
 router.post("/login",saveRedirectUrl,passport.authenticate('local',{failureFlash:true , failureRedirect:"/login"}),wrapAsync(controllers.loginPost));
