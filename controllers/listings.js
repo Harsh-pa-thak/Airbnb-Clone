@@ -8,6 +8,17 @@ module.exports.index =async (req, res) => {
 module.exports.renderNewForm =  (req, res) => {
   res.render("listings/newListing");
 };
+module.exports.showListing =async (req, res) => {
+  const id = req.params.id;
+  const listing = await Listing.findById(id)
+    .populate({ path: "reviews", populate: { path: "author" } })
+    .populate("owner");
+  if(!listing){
+    req.flash("error", "Cannot find the listing");
+    return res.redirect("/listings");
+  }
+  res.render("listings/listing-detail", { listing });
+};
 
 module.exports.createListing = async (req, res) => {
   const id = req.params.id;
