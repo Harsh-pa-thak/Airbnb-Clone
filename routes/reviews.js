@@ -20,14 +20,8 @@ const validateReview = (req, res, next) => {
   }
 };
 
-router.post('/',validateReview,isLoggedIn,wrapAsync())
+router.post('/',validateReview,isLoggedIn,wrapAsync(controllers.createReview));
 
-router.delete('/:reviewId',isLoggedIn,isReviewAuthor,wrapAsync(async (req,res)=>{
-  let {id , reviewId} = req.params;
-  await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
-  await Review.findByIdAndDelete(reviewId);
-  req.flash("success", "Successfully deleted the review");
-  res.redirect(`/listings/${id}`);
-}));
+router.delete('/:reviewId',isLoggedIn,isReviewAuthor,wrapAsync(controllers.deleteReview));
 
 module.exports = router;
