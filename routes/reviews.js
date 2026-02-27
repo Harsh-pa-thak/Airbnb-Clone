@@ -8,7 +8,6 @@ const Listing = require("../models/listing.js");
 const { isLoggedIn,isReviewAuthor } = require("../middelware.js");
 const controllers = require("../controllers/reviews.js");
 
-
 const validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
 
