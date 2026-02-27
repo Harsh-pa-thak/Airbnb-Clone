@@ -11,14 +11,13 @@ router.route("/")
 
 router.get("/newListings", isLoggedIn, controllers.renderNewForm);
 
+
 router.get("/:id", wrapAsync(controllers.showListing));
-
-
+router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(controllers.updateListing));
+router.delete("/:id",isLoggedIn, wrapAsync(controllers.deleteListing));
 
 router.get("/:id/edit",isLoggedIn, wrapAsync(controllers.editform));
-router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(controllers.updateListing));
 
-  
-router.delete("/:id",isLoggedIn, wrapAsync(controllers.deleteListing));
+
 
 module.exports = router;
