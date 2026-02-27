@@ -16,8 +16,8 @@ router.get("/:id", wrapAsync(controllers.showListing));
 
 
 router.get("/:id/edit",isLoggedIn, wrapAsync(controllers.editform));
-
 router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(controllers.updateListing));
+
   
 router.delete("/:id",isLoggedIn, wrapAsync(controllers.deleteListing));
 
