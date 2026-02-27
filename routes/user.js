@@ -10,9 +10,7 @@ router.get("/signup", controllers.signupGet);
 
 router.post("/signup",wrapAsync(controllers.signupPost));
 
-router.get("/login", (req, res) => {
-    res.render("users/login");
-});
+router.get("/login", controllers.loginGet);
 
 router.post("/login",saveRedirectUrl,passport.authenticate('local',{failureFlash:true , failureRedirect:"/login"}),wrapAsync(async (req, res) => {
     req.flash("success", "Logged in successfully");

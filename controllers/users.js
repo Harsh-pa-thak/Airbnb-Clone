@@ -20,3 +20,7 @@ module.exports.signupPost=async (req, res) => {
         return res.redirect("/signup");
     }
 };
+
+module.exports.loginGet = (req, res) => {
+    res.render("users/login");
+};
