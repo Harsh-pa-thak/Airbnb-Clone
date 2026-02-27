@@ -30,4 +30,12 @@ module.exports.loginPost =async (req, res) => {
     res.redirect(res.locals.redirectUrl || "/listings");
 };
 
-module.exports.logout = 
+module.exports.logout = (req, res,next) => {
+    req.logout((err) => {
+        if(err){
+            return next(err);
+        }
+        req.flash("success", "You have been logged out");
+        res.redirect("/listings");
+    });
+});
