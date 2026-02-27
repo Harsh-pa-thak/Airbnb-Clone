@@ -28,4 +28,19 @@ module.exports.newlisting =async (req, res,next) => {
   res.redirect("/listings");
 };
 
-module.exports.showListing =
+module.exports.editform=async (req, res) => {
+  const id = req.params.id;
+  const listing = await Listing.findById(id);
+  if(!listing){
+    req.flash("error", "Cannot find the listing");
+    return res.redirect("/listings");
+  }
+  res.render("listings/editListing", { listing });
+};
+
+module.exports.updateListing = async (req, res) => {
+  const id = req.params.id;
+  await Listing.findByIdAndUpdate(id, {...req.body}); 
+  req.flash("success", "Successfully updated the listing");
+  res.redirect(`/listings/${id}`);
+};
