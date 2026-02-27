@@ -3,26 +3,15 @@ const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner , validate } = require("../middelware.js");
+const listingController = require("../controllers/listings.js");
 
-router.get("/", wrapAsync(async (req, res) => {
-  const listings = await Listing.find({});
-  res.render("listings/listings", { listings});
-}));
-router.get("/newListings", isLoggedIn, (req, res) => {
-  res.render("listings/newListing");
-});
+router.get("/", wrapAsync(
+  listingController.index
+));
 
-router.get("/:id", wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  const listing = await Listing.findById(id)
-    .populate({ path: "reviews", populate: { path: "author" } })
-    .populate("owner");
-  if(!listing){
-    req.flash("error", "Cannot find the listing");
-    return res.redirect("/listings");
-  }
-  res.render("listings/listing-detail", { listing });
-}));
+router.get("/newListings", isLoggedIn ,listingController.renderNewForm);
+
+router.get("/:id", wrapAsync(listingController.createListing));
 
 router.post("/", isLoggedIn, validate, wrapAsync(async (req, res,next) => {
   const newListing = new Listing(req.body);
