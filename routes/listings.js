@@ -17,11 +17,6 @@ router.get("/:id/edit",isLoggedIn, wrapAsync(controllers.editform));
 
 router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(controllers.updateListing));
   
-router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {
-  const id = req.params.id;
-  await Listing.findByIdAndDelete(id);
-  req.flash("success", "Successfully deleted the listing");
-  res.redirect("/listings");
-}));
+router.delete("/:id",isLoggedIn, wrapAsync(controllers.deleteListing));
 
 module.exports = router;
