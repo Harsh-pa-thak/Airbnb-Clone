@@ -11,9 +11,11 @@ router.route("/")
 
 router.get("/newListings", isLoggedIn, controllers.renderNewForm);
 
+router.route("/:id")
+.get(wrapAsync(controllers.showListing))
+.put(isLoggedIn,isOwner,validate, wrapAsync(controllers.updateListing));
 
-router.get("/:id", wrapAsync(controllers.showListing));
-router.put("/:id",isLoggedIn,isOwner,validate, wrapAsync(controllers.updateListing));
+router.
 router.delete("/:id",isLoggedIn, wrapAsync(controllers.deleteListing));
 
 router.get("/:id/edit",isLoggedIn, wrapAsync(controllers.editform));
