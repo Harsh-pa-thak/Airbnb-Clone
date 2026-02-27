@@ -8,7 +8,6 @@ router.route("/")
 .get( wrapAsync(controllers.index))
 .post(isLoggedIn, validate, wrapAsync(controllers.createListing));
 
-
 router.get("/newListings", isLoggedIn, controllers.renderNewForm);
 
 router.route("/:id")
@@ -17,7 +16,5 @@ router.route("/:id")
 .delete(isLoggedIn, wrapAsync(controllers.deleteListing));
 
 router.get("/:id/edit",isLoggedIn, wrapAsync(controllers.editform));
-
-
 
 module.exports = router;
