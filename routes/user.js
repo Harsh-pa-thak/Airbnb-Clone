@@ -14,15 +14,7 @@ router.get("/login", controllers.loginGet);
 
 router.post("/login",saveRedirectUrl,passport.authenticate('local',{failureFlash:true , failureRedirect:"/login"}),wrapAsync(controllers.loginPost));
 
-router.get("/logout", (req, res,next) => {
-    req.logout((err) => {
-        if(err){
-            return next(err);
-        }
-        req.flash("success", "You have been logged out");
-        res.redirect("/listings");
-    });
-});
+router.get("/logout", controllers.logout);
 
 
 module.exports = router;
