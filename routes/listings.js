@@ -5,10 +5,8 @@ const { isLoggedIn, isOwner , validate } = require("../middelware.js");
 const controllers = require("../controllers/listings.js");
 
 router.route("/")
-.get( wrapAsync(controllers.index));
-
-
-router.post("/", isLoggedIn, validate, wrapAsync(controllers.createListing));
+.get( wrapAsync(controllers.index))
+.post(isLoggedIn, validate, wrapAsync(controllers.createListing));
 
 
 router.get("/newListings", isLoggedIn, controllers.renderNewForm);
