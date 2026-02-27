@@ -11,13 +11,7 @@ router.get("/newListings", isLoggedIn, controllers.renderNewForm);
 
 router.get("/:id", wrapAsync(controllers.showListing));
 
-router.post("/", isLoggedIn, validate, wrapAsync(async (req, res,next) => {
-  const newListing = new Listing(req.body);
-  newListing.owner = req.user._id; 
-  await newListing.save();
-  req.flash("success", "Successfully made a new listing");
-  res.redirect("/listings");
-}));
+router.post("/", isLoggedIn, validate, wrapAsync(controllers.createListing));
 
 router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
   const id = req.params.id;

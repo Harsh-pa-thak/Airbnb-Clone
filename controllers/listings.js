@@ -31,13 +31,7 @@ module.exports.createListing = async (req, res) => {
   }
   res.render("listings/listing-detail", { listing });
 };
-module.exports.newlisting =async (req, res,next) => {
-  const newListing = new Listing(req.body);
-  newListing.owner = req.user._id; 
-  await newListing.save();
-  req.flash("success", "Successfully made a new listing");
-  res.redirect("/listings");
-};
+
 
 module.exports.editform=async (req, res) => {
   const id = req.params.id;
