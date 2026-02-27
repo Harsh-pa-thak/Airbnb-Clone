@@ -23,4 +23,9 @@ module.exports.signupPost=async (req, res) => {
 
 module.exports.loginGet = (req, res) => {
     res.render("users/login");
+}
+
+module.exports.loginPost =async (req, res) => {
+    req.flash("success", "Logged in successfully");
+    res.redirect(res.locals.redirectUrl || "/listings");
 };
