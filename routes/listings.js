@@ -3,11 +3,9 @@ const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner , validate } = require("../middelware.js");
+const controllers = require("../controllers/listings.js");
+router.get("/", wrapAsync(controllers.index));
 
-router.get("/", wrapAsync(async (req, res) => {
-  const listings = await Listing.find({});
-  res.render("listings/listings", { listings});
-}));
 router.get("/newListings", isLoggedIn, (req, res) => {
   res.render("listings/newListing");
 });
