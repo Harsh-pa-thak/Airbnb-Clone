@@ -10,7 +10,10 @@ router.route("/signup")
 .post(wrapAsync(controllers.signupPost));
 
 
-router.get("/login", controllers.loginGet);
+router.route("/login")
+.get(controllers.loginGet)
+
+router
 router.post("/login",saveRedirectUrl,passport.authenticate('local',{failureFlash:true , failureRedirect:"/login"}),wrapAsync(controllers.loginPost));
 
 router.get("/logout", controllers.logout);
