@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const User = require("../models/user.js");
 const wrapAsync = require("../utils/wrapasync.js");
-const { route } = require("./user");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middelware.js");
 
