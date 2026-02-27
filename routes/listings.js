@@ -4,11 +4,10 @@ const wrapAsync = require("../utils/wrapasync.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner , validate } = require("../middelware.js");
 const controllers = require("../controllers/listings.js");
+
 router.get("/", wrapAsync(controllers.index));
 
-router.get("/newListings", isLoggedIn, (req, res) => {
-  res.render("listings/newListing");
-});
+router.get("/newListings", isLoggedIn, controllers.renderNewForm);
 
 router.get("/:id", wrapAsync(async (req, res) => {
   const id = req.params.id;
