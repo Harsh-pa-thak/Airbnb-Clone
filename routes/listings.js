@@ -9,7 +9,7 @@ const upload = multer({ dest: 'uploads/' })
 router.route("/")
 .get( wrapAsync(controllers.index))
 //.post(isLoggedIn, validate, wrapAsync(controllers.createListing));
-.post(upload.single('listing[image]'), (req, res) => {
+.post(upload.single('image'), (req, res) => {
     res.send(req.file);
 });
 
