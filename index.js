@@ -1,5 +1,5 @@
 require("dotenv").config();
-console.log(process.env);
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -14,6 +14,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
