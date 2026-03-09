@@ -9,7 +9,6 @@ const ejsMate = require("ejs-mate");
 const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const session = require("express-session");
-const { date } = require("joi");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");

@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const wrapAsync = require("../utils/wrapasync.js");
-const Review = require("../models/review.js");
 const reviewSchema = require('../schema.js').reviewSchema;
 const CustomError= require("../utils/customError.js");
-const Listing = require("../models/listing.js");
 const { isLoggedIn,isReviewAuthor } = require("../middelware.js");
 const controllers = require("../controllers/reviews.js");
 
