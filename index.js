@@ -1,8 +1,10 @@
+require("dotenv").config();
+console.log(process.env);
 const express = require("express");
 const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); 
 const ejsMate = require("ejs-mate");
 const CustomError= require("./utils/customError.js");
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
