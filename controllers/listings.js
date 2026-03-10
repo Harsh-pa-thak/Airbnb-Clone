@@ -17,21 +17,17 @@ module.exports.showListing =async (req, res) => {
     req.flash("error", "Cannot find the listing");
     return res.redirect("/listings");
   }
-  console.log(listing);
   res.render("listings/listing-detail", { listing });
 };
 
 module.exports.createListing = async (req, res) => {
-  console.log("req.file:", req.file);
-  console.log("req.body:", req.body);
-  let url = req.file.path;
-  let filename = req.file.filename;
+  let url = req.file.secure_url;
+  let filename = req.file.public_id;
   const listing = new Listing({ ...req.body });
   listing.image.url = url;
   listing.image.filename = filename;
   listing.owner = req.user._id;
   await listing.save();
-  console.log("saved listing:", listing);
   req.flash("success", "Successfully created a new listing");
   res.redirect(`/listings/${listing._id}`);
 };
