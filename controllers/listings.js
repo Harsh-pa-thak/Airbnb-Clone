@@ -21,6 +21,16 @@ module.exports.showListing =async (req, res) => {
 };
 
 module.exports.createListing = async (req, res) => {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  const listing = new Listing({ ...req.body });
+  listing.image.url = url;
+  listing.image.filename = filename;
+  listing.owner = req.user._id;
+  await listing.save();
+  req.flash("success", "Successfully created a new listing");
+  res.redirect(`/listings/${listing._id}`);
+}
   const id = req.params.id;
   const listing = await Listing.findById(id)
     .populate({ path: "reviews", populate: { path: "author" } })
