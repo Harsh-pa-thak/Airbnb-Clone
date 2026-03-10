@@ -30,16 +30,6 @@ module.exports.createListing = async (req, res) => {
   await listing.save();
   req.flash("success", "Successfully created a new listing");
   res.redirect(`/listings/${listing._id}`);
-}
-  const id = req.params.id;
-  const listing = await Listing.findById(id)
-    .populate({ path: "reviews", populate: { path: "author" } })
-    .populate("owner");
-  if(!listing){
-    req.flash("error", "Cannot find the listing");
-    return res.redirect("/listings");
-  }
-  res.render("listings/listing-detail", { listing });
 };
 
 module.exports.editform=async (req, res) => {
