@@ -7,7 +7,7 @@ const map = new mapboxgl.Map({
 });
 
 async function getCoordinates() {
-  const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${}&limit=1&access_token=${maptoken}`;
+  const url = `https://api.mapbox.com/search/geocode/v6/forward?q=delhi&limit=1&access_token=${maptoken}`;
   const response = await fetch(url);
   const data = await response.json();
   const coordinates = data.features[0].geometry.coordinates;
