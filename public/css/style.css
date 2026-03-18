@@ -128,3 +128,8 @@ body {
 .navbar-toggler {
     border: none;
 }
+
+#map { 
+    height: 100px;
+    width: 100px;
+ }
