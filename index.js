@@ -15,9 +15,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
-const fetch = require("node-fetch");
-
-const fetch = require("node-fetch");
 
 async function getCoordinates(city) {
   const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${city}&limit=1&access_token=${process.env.MAPBOX_TOKEN}`;
