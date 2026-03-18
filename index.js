@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
+const util = require("util");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose"); 
 const ejsMate = require("ejs-mate");
@@ -14,6 +15,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
+
+// Legacy packages still read util.isArray; point it to the modern API to avoid DEP0044.
+util.isArray = Array.isArray;
 
 
 app.use(express.json());
