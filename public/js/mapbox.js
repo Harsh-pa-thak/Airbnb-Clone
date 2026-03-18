@@ -1,10 +1,5 @@
 
 mapboxgl.accessToken = maptoken;
-const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    center: [80.2705, 13.0843],
-    zoom: 9 
-});
 
 async function getCoordinates() {
   const url = `https://api.mapbox.com/search/geocode/v6/forward?q=delhi&limit=1&access_token=${maptoken}`;
@@ -15,3 +10,8 @@ async function getCoordinates() {
 }
 
 getCoordinates().then(coords => console.log(coords));
+const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    center: [80.2705, 13.0843],
+    zoom: 9 
+});
