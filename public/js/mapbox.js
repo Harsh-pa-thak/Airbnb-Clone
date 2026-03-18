@@ -8,11 +8,12 @@ async function getCoordinates() {
   const coordinates = data.features[0].geometry.coordinates;
   return coordinates;
 }
-let coords = getCoordinates().then(coords => console.log(coords));
-console.log(coords);
-const map = new mapboxgl.Map({
-    container: 'map', 
-    center: [coords[1], coords[0]],
-    zoom: 9 
+let coords = getCoordinates().then(coords => {
+    const map = new mapboxgl.Map({
+        container: 'map', 
+        center: [coords[1], coords[0]],
+        zoom: 9 
+    });
 });
+
 
