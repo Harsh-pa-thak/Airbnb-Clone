@@ -18,12 +18,9 @@ const userRoutes = require("./routes/user.js");
 
 async function getCoordinates(city) {
   const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${city}&limit=1&access_token=${process.env.MAPBOX_TOKEN}`;
-
   const response = await fetch(url);
   const data = await response.json();
-
   const coordinates = data.features[0].geometry.coordinates;
-
   return coordinates;
 }
 
