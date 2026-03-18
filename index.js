@@ -15,9 +15,13 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const userRoutes = require("./routes/user.js");
+const fetch = require("node-fetch");
 
 // Legacy packages still read util.isArray; point it to the modern API to avoid DEP0044.
 util.isArray = Array.isArray;
+const city = "patna";
+
+const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${city}&access_token=${process.env.MAPBOX_TOKEN}`;
 
 
 app.use(express.json());
@@ -93,6 +97,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("errors", { err });
 });
 
+
+//location 
 app.listen(8080, () => {
   console.log("server is listening to port 8080");
 });
