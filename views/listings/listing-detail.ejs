@@ -1,7 +1,9 @@
 <% layout('layouts/boilerplate') %>
 <script>
   let maptoken = "<%= process.env.MAPBOX_TOKEN %>";
+  let l = "<%= listing.location %>, <%= listing.country %>";
 </script>
+
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-8 offset-md-2">
