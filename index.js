@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 
 main()
   .then(() => {
-    console.log("connected to DB");
+    console.log("connected to DB")
   })
   .catch((err) => {
     console.log(err);
